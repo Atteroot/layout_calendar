@@ -1,0 +1,52 @@
+@import "variables.scss";
+
+.calendar {
+  display: flex;
+  flex-wrap: wrap;
+
+  width: 708px;
+  gap: 1px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  & > div {
+    background-color: #eee;
+    border: 1px solid;
+
+    width: $widthBlock;
+    height: $heightBlock;
+
+    text-align: center;
+    line-height: $blockSize;
+
+    transition: background-color 0.5s, transform 0.5s;
+
+    &:hover {
+      background-color: pink;
+      transform: translateY(-20px);
+    }
+
+    &:first-child {
+      margin-left: 101px;
+    }
+
+    @for $day from 1 through 31 {
+      &:nth-child(#{$day}) {
+        &:before {
+          content: "#{$day}";
+        }
+      }
+    }
+  }
+
+  @for $day from 28 through 31 {
+    &-#{$day} {
+      & > div:nth-child(n + #{$day + 1}) {
+        display: none;
+      }
+    }
+  }
+}
